@@ -1,0 +1,29 @@
+# Perplexity to Notion - Python Dependencies
+# ===========================================
+# Install with: pip install -r requirements.txt
+
+# Notion API Client (Official SDK)
+notion-client>=2.2.1
+
+# HTTP Requests
+requests>=2.31.0
+
+# Environment Variable Management
+python-dotenv>=1.0.0
+
+# Optional: HTML Parsing (for Perplexity web scraping)
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Optional: Enhanced CLI
+rich>=13.7.0
+
+# Optional: Push Notifications
+# Uncomment if using push notification features
+# pushover-complete>=1.1.1
+# python-telegram-bot>=20.0
+
+# Development Dependencies (optional)
+# pytest>=7.4.0
+# black>=23.0.0
+# flake8>=6.0.0

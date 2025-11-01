@@ -1,0 +1,53 @@
+# Systemd Service Configuration for Perplexity to Notion Webhook
+# ===============================================================
+#
+# Installation:
+# 1. Copy this file to /etc/systemd/system/perplexity-notion.service
+# 2. Edit User, WorkingDirectory, and Environment paths
+# 3. Run: sudo systemctl daemon-reload
+# 4. Run: sudo systemctl enable perplexity-notion
+# 5. Run: sudo systemctl start perplexity-notion
+#
+# Management:
+# - Status: sudo systemctl status perplexity-notion
+# - Logs:   sudo journalctl -u perplexity-notion -f
+# - Stop:   sudo systemctl stop perplexity-notion
+# - Restart: sudo systemctl restart perplexity-notion
+
+[Unit]
+Description=Perplexity to Notion Webhook Server
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=youruser
+Group=yourgroup
+WorkingDirectory=/home/youruser/Perplexity-to-Notion
+
+# Environment variables (or use EnvironmentFile)
+Environment="NOTION_TOKEN=secret_your_token_here"
+Environment="PERPLEXITY_API_KEY=pplx-your-key-here"
+# Or use: EnvironmentFile=/home/youruser/Perplexity-to-Notion/.env
+
+# Command to run
+ExecStart=/usr/bin/python3 perplexity_to_notion.py --webhook --port 8080
+
+# Restart policy
+Restart=always
+RestartSec=10
+
+# Security hardening (optional)
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/youruser/Perplexity-to-Notion
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=perplexity-notion
+
+[Install]
+WantedBy=multi-user.target

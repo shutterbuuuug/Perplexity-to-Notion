@@ -1,0 +1,29 @@
+{
+  "comment": "Optional JSON configuration file for advanced settings",
+  "notion_token": "secret_your_token_here",
+  "perplexity_api_key": "pplx-your-key-here",
+  "notion_mcp_endpoint": "https://mcp.notion.com/mcp",
+  "webhook": {
+    "enabled": true,
+    "port": 8080,
+    "api_key": "your-webhook-secret-key"
+  },
+  "notifications": {
+    "enabled": false,
+    "service": "ntfy",
+    "config": {
+      "topic": "your-ntfy-topic"
+    }
+  },
+  "preferences": {
+    "default_destination_id": "your-database-id",
+    "default_destination_type": "database",
+    "include_metadata": true,
+    "include_sources": true,
+    "include_related_questions": true
+  },
+  "logging": {
+    "level": "INFO",
+    "file": null
+  }
+}
