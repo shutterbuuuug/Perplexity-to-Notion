@@ -65,44 +65,90 @@ See: **[Security Checklist →](SECURITY_HARDENING.md#pre-deployment-security-ch
 
 ---
 
-## Quick Start
+## 🚀 Quick Installation
 
-### Prerequisites
+**We've created guided installation wizards that walk you through the entire setup process!**
 
-- Python 3.8 or higher
-- Notion account with integration access
-- Perplexity AI account (optional, for API features)
+### 🖥️ macOS (M1/Intel Mac Mini)
 
-### Installation
+**One-command installation:**
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/Perplexity-to-Notion.git
-   cd Perplexity-to-Notion
-   ```
+```bash
+curl -sSL https://raw.githubusercontent.com/shutterbuuuug/Perplexity-to-Notion/main/install_macos.sh | bash
+```
 
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+Or clone and run the interactive wizard:
 
-3. **Configure credentials**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your API tokens
-   ```
+```bash
+git clone https://github.com/shutterbuuuug/Perplexity-to-Notion.git
+cd Perplexity-to-Notion
+python3 setup_wizard.py
+```
 
-4. **Set up Notion integration**
-   - Go to https://www.notion.so/my-integrations
-   - Create a new integration
-   - Copy the "Internal Integration Token"
-   - Paste into `.env` as `NOTION_TOKEN`
-   - Share your target databases/pages with the integration
+The wizard will:
+- ✅ Check system requirements
+- ✅ Install all dependencies automatically
+- ✅ Guide you through API key setup with browser links
+- ✅ Configure security settings
+- ✅ Test your Notion connection
+- ✅ Create desktop shortcuts and terminal aliases
+- ✅ Verify everything works
 
-5. **Run the script**
-   ```bash
-   python perplexity_to_notion.py
-   ```
+**Time required:** ~10-15 minutes
+
+---
+
+### 📱 Android (via Termux)
+
+**One-command installation:**
+
+```bash
+curl -sSL https://raw.githubusercontent.com/shutterbuuuug/Perplexity-to-Notion/main/android_installer.sh | bash
+```
+
+Or manual installation:
+
+```bash
+# 1. Install Termux from F-Droid (NOT Google Play!)
+# 2. Open Termux and run:
+pkg update && pkg install git
+git clone https://github.com/shutterbuuuug/Perplexity-to-Notion.git
+cd Perplexity-to-Notion
+bash android_installer.sh
+```
+
+The Android installer will:
+- ✅ Set up Python and dependencies in Termux
+- ✅ Install optional Termux:API for biometric auth
+- ✅ Guide you through API key setup
+- ✅ Set up encrypted credential storage with fingerprint unlock
+- ✅ Create home screen shortcuts (via Termux:Widget)
+- ✅ Configure clipboard export functionality
+
+**Requirements:**
+- Termux from F-Droid: https://f-droid.org/packages/com.termux/
+- Termux:API (optional): https://f-droid.org/packages/com.termux.api/
+- Termux:Widget (optional): https://f-droid.org/packages/com.termux.widget/
+
+**Time required:** ~15-20 minutes
+
+---
+
+### 🐧 Linux / 🪟 Windows
+
+```bash
+git clone https://github.com/shutterbuuuug/Perplexity-to-Notion.git
+cd Perplexity-to-Notion
+python3 setup_wizard.py
+```
+
+---
+
+## 📖 Detailed Installation Guide
+
+For step-by-step instructions, troubleshooting, and platform-specific details, see:
+
+**[→ Complete Installation Guide](INSTALLATION.md)**
 
 ---
 
