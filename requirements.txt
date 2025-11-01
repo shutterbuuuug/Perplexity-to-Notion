@@ -11,6 +11,10 @@ requests>=2.31.0
 # Environment Variable Management
 python-dotenv>=1.0.0
 
+# Security Module Dependencies (REQUIRED)
+PyJWT>=2.8.0                # JWT authentication
+cryptography>=41.0.0        # Encryption and secure storage
+
 # Optional: HTML Parsing (for Perplexity web scraping)
 beautifulsoup4>=4.12.0
 lxml>=4.9.0
@@ -22,6 +26,11 @@ rich>=13.7.0
 # Uncomment if using push notification features
 # pushover-complete>=1.1.1
 # python-telegram-bot>=20.0
+
+# Security Scanning (Development)
+# Uncomment for security audits
+# safety>=2.3.0               # Vulnerability scanning
+# bandit>=1.7.5               # Security linting
 
 # Development Dependencies (optional)
 # pytest>=7.4.0

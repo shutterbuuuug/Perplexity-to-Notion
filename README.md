@@ -6,6 +6,37 @@ A comprehensive, MCP-aware Python script for seamlessly integrating Perplexity A
 
 ---
 
+## ⚠️ CRITICAL SECURITY NOTICE
+
+**🔴 This system is NOT production-ready without security hardening!**
+
+The base implementation has **3 CRITICAL and 7 HIGH-severity security vulnerabilities** that MUST be addressed before deployment, especially for mobile usage.
+
+**Before using this system**:
+
+1. **Read** [SECURITY_AUDIT.md](SECURITY_AUDIT.md) - Detailed threat analysis
+2. **Implement** security enhancements from [SECURITY_HARDENING.md](SECURITY_HARDENING.md)
+3. **Use** the `security/` module components:
+   - JWT authentication with expiration
+   - Encrypted credential storage (mobile)
+   - Input validation and sanitization
+   - HTTPS enforcement
+   - Rate limiting
+
+**Key Risks Without Security Module**:
+- 🔴 Plaintext HTTP communication → Credentials visible on network
+- 🔴 No rate limiting → DoS attacks possible
+- 🔴 Weak authentication → Easy token compromise
+- 🟠 Unencrypted mobile credentials → Physical device access = theft
+- 🟠 No input validation → SSRF, XSS, injection attacks
+
+**For Personal Use**: Implement P0 (Critical) and P1 (High) fixes from hardening guide
+**For Production**: Complete security audit + penetration testing required
+
+See: **[Security Checklist →](SECURITY_HARDENING.md#pre-deployment-security-checklist)**
+
+---
+
 ## Features
 
 ✨ **Core Functionality**
