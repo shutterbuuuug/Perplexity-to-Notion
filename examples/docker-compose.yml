@@ -1,0 +1,65 @@
+version: '3.8'
+
+# Docker Compose Configuration for Perplexity to Notion
+# ======================================================
+#
+# Usage:
+#   docker-compose up -d                 # Start in background
+#   docker-compose logs -f               # View logs
+#   docker-compose down                  # Stop and remove
+#
+# Prerequisites:
+#   1. Create .env file with your credentials
+#   2. Adjust port mapping if needed
+
+services:
+  perplexity-notion:
+    image: python:3.11-slim
+    container_name: perplexity-notion-webhook
+    working_dir: /app
+
+    # Mount application directory
+    volumes:
+      - ./:/app
+      - perplexity-data:/root/.perplexity-notion
+
+    # Environment variables from .env file
+    env_file:
+      - .env
+
+    # Command to run
+    command: >
+      sh -c "
+        pip install -r requirements.txt &&
+        python perplexity_to_notion.py --webhook --port 8080
+      "
+
+    # Port mapping
+    ports:
+      - "8080:8080"
+
+    # Restart policy
+    restart: unless-stopped
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Resource limits (optional)
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+# Persistent volume for configuration
+volumes:
+  perplexity-data:
+    driver: local

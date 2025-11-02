@@ -1,0 +1,72 @@
+{
+  "name": "Export to Notion",
+  "description": "HTTP Shortcuts configuration for Perplexity to Notion",
+  "shortcuts": [
+    {
+      "id": "export-clipboard",
+      "name": "Export from Clipboard",
+      "method": "POST",
+      "url": "http://YOUR_IP:8080/export",
+      "headers": [],
+      "body_type": "json",
+      "body": {
+        "source": "{clipboard}",
+        "destination_id": "your-database-id-here"
+      },
+      "timeout": 30000,
+      "require_confirmation": false,
+      "show_response": true,
+      "response_type": "toast"
+    },
+    {
+      "id": "export-prompt",
+      "name": "Export with Prompt",
+      "method": "POST",
+      "url": "http://YOUR_IP:8080/export",
+      "headers": [],
+      "body_type": "json",
+      "body": {
+        "source": "{prompt:Enter Perplexity URL}",
+        "destination_id": "your-database-id-here"
+      },
+      "timeout": 30000,
+      "require_confirmation": false,
+      "show_response": true,
+      "response_type": "toast"
+    },
+    {
+      "id": "export-share",
+      "name": "Export Shared URL",
+      "method": "POST",
+      "url": "http://YOUR_IP:8080/export",
+      "headers": [],
+      "body_type": "json",
+      "body": {
+        "source": "{share_text}",
+        "destination_id": "your-database-id-here"
+      },
+      "timeout": 30000,
+      "require_confirmation": false,
+      "show_response": true,
+      "response_type": "toast",
+      "enable_share_menu": true
+    },
+    {
+      "id": "health-check",
+      "name": "Check Server Status",
+      "method": "GET",
+      "url": "http://YOUR_IP:8080/health",
+      "headers": [],
+      "timeout": 5000,
+      "show_response": true,
+      "response_type": "dialog"
+    }
+  ],
+  "instructions": [
+    "1. Import this configuration into HTTP Shortcuts app",
+    "2. Replace YOUR_IP with your server's IP address",
+    "3. Replace 'your-database-id-here' with your Notion database ID",
+    "4. Test with 'Check Server Status' shortcut first",
+    "5. Create home screen shortcuts for quick access"
+  ]
+}
