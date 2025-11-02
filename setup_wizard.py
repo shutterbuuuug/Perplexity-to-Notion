@@ -17,7 +17,8 @@ Features:
 Compatible with: macOS (M1/Intel), Linux, Windows
 
 Usage:
-    python3 setup_wizard.py
+    python3 setup_wizard.py                 # Run full setup
+    python3 setup_wizard.py --skip-checks   # Skip internet connection check
 
 Author: Claude Code
 License: MIT
@@ -30,6 +31,7 @@ import json
 import secrets
 import platform
 import shutil
+import argparse
 from pathlib import Path
 from typing import Optional, Dict, Tuple
 
@@ -62,13 +64,18 @@ console = Console()
 class SetupWizard:
     """Interactive setup wizard for Perplexity to Notion."""
 
-    def __init__(self):
-        """Initialize the setup wizard."""
+    def __init__(self, skip_checks=False):
+        """Initialize the setup wizard.
+
+        Args:
+            skip_checks: If True, skip internet connection check
+        """
         self.console = Console()
         self.project_dir = Path(__file__).parent.absolute()
         self.config = {}
         self.current_step = 0
         self.total_steps = 8
+        self.skip_checks = skip_checks
 
         # Detect platform
         self.platform = platform.system()
@@ -166,12 +173,15 @@ Press Enter to begin the setup...
             checks.append(("⚠️", "git not found (optional)"))
 
         # Check internet connection
-        try:
-            import urllib.request
-            urllib.request.urlopen('https://www.google.com', timeout=3)
-            checks.append(("✅", "Internet connection"))
-        except:
-            checks.append(("❌", "No internet connection"))
+        if not self.skip_checks:
+            try:
+                import urllib.request
+                urllib.request.urlopen('https://www.google.com', timeout=3)
+                checks.append(("✅", "Internet connection"))
+            except:
+                checks.append(("⚠️", "Internet connection check failed (skippable)"))
+        else:
+            checks.append(("⏭️", "Internet connection check (skipped)"))
 
         # Display results
         table = Table(show_header=False, box=box.SIMPLE)
@@ -181,9 +191,17 @@ Press Enter to begin the setup...
         self.console.print("\n")
         self.console.print(table)
 
-        if any(check[0] == "❌" for check in checks):
+        # Only fail on critical errors (not warnings)
+        critical_failures = [check for check in checks if check[0] == "❌"]
+        if critical_failures:
             self.console.print("\n[red]⚠️  Some requirements are not met. Please fix them and try again.[/red]")
             sys.exit(1)
+
+        # Show warning if there are any warnings
+        if any(check[0] == "⚠️" for check in checks):
+            self.console.print("\n[yellow]⚠️  Some checks failed but setup can continue.[/yellow]")
+            if not self.skip_checks:
+                self.console.print("[dim]Tip: Use --skip-checks to skip internet connection check[/dim]")
 
         self.console.print("\n[green]✅ All system checks passed![/green]")
         input("\nPress Enter to continue...")
@@ -721,7 +739,26 @@ This will guide you through the Termux setup process.
 
 def main():
     """Main entry point."""
-    wizard = SetupWizard()
+    parser = argparse.ArgumentParser(
+        description='Perplexity to Notion - Interactive Setup Wizard',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python3 setup_wizard.py                    # Run full setup with all checks
+  python3 setup_wizard.py --skip-checks      # Skip internet connection check
+
+For more information, see the README.md file.
+        """
+    )
+    parser.add_argument(
+        '--skip-checks',
+        action='store_true',
+        help='Skip internet connection check (useful if already connected but check fails)'
+    )
+
+    args = parser.parse_args()
+
+    wizard = SetupWizard(skip_checks=args.skip_checks)
     wizard.run()
 
 
