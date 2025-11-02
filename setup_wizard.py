@@ -259,7 +259,7 @@ To export to Notion, you need an Integration Token.
 3. Give it a name (e.g., "Perplexity Exporter")
 4. Select your workspace
 5. Click [bold]"Submit"[/bold]
-6. Copy the [bold]"Internal Integration Token"[/bold] (starts with "secret_")
+6. Copy the [bold]"Internal Integration Token"[/bold] (starts with "ntn_")
 7. **Important:** Share your target database/page with this integration:
    - Open the database/page in Notion
    - Click "Share" in the top right
@@ -288,12 +288,12 @@ To export to Notion, you need an Integration Token.
                 password=True
             )
 
-            if token.startswith("secret_") and len(token) > 40:
+            if token.startswith("ntn_") and len(token) > 40:
                 self.config['NOTION_TOKEN'] = token
                 self.console.print("[green]✅ Token saved![/green]")
                 break
             else:
-                self.console.print("[red]❌ Invalid token format. It should start with 'secret_'[/red]")
+                self.console.print("[red]❌ Invalid token format. It should start with 'ntn_'[/red]")
 
         input("\nPress Enter to continue...")
         return token
